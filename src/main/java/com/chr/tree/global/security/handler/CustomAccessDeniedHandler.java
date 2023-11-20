@@ -20,7 +20,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             HttpServletResponse response,
             AccessDeniedException accessDeniedException
     ) throws IOException, ServletException {
-        log.error("===Access Denied===");
+        log.error("Access Denied for request: {}, user: {}", request.getRequestURI(), request.getUserPrincipal());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }
