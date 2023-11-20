@@ -20,8 +20,14 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
+
+jwt:
+  accessSecret: ${ACCESS_SECRET}
+  refreshSecret: ${REFRESH_SECRET}
+  accessTime: ${ACCESS_TIME}
+  refreshTime: ${REFRESH_TIME}
 
 server:
   port: 9080
