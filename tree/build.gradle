@@ -22,12 +22,56 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//REST
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version : '3.0.4'
+
+	//lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+	//JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+	//DB
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	//LocalDateTime
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.15.0-rc3'
+
+	//Test
+	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation('org.junit.jupiter:junit-jupiter')
+	testImplementation('org.junit.jupiter:junit-jupiter-api')
+	testImplementation('org.mockito:mockito-core')
+	testImplementation('org.mockito:mockito-junit-jupiter')
+	testImplementation('org.hamcrest:hamcrest')
+	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+
+	//mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('bootBuildImage') {
