@@ -5,12 +5,12 @@ import com.chr.tree.domain.user.controller.data.response.TokenDto;
 import com.chr.tree.domain.user.entity.User;
 import com.chr.tree.domain.user.repository.UserRepository;
 import com.chr.tree.domain.user.service.LoginService;
+import com.chr.tree.global.annotation.ServiceWithTransactional;
 import com.chr.tree.global.security.jwt.TokenIssuer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
-@Service
+@ServiceWithTransactional
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
