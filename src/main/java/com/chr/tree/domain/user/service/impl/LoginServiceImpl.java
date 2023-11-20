@@ -1,0 +1,40 @@
+package com.chr.tree.domain.user.service.impl;
+
+import com.chr.tree.domain.user.controller.data.request.LoginRequest;
+import com.chr.tree.domain.user.controller.data.response.TokenDto;
+import com.chr.tree.domain.user.entity.User;
+import com.chr.tree.domain.user.repository.UserRepository;
+import com.chr.tree.domain.user.service.LoginService;
+import com.chr.tree.global.annotation.ServiceWithTransactional;
+import com.chr.tree.global.security.jwt.TokenIssuer;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@ServiceWithTransactional
+@RequiredArgsConstructor
+public class LoginServiceImpl implements LoginService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenIssuer tokenIssuer;
+
+    @Override
+    public TokenDto execute(LoginRequest loginRequest) {
+        //TODO : CustomException 적용
+        User user = userRepository.findByEmail(loginRequest.getEmail())
+                .orElseThrow(RuntimeException::new);
+
+        //TODO : CustomException 적용
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new RuntimeException();
+        }
+
+        String accessToken = tokenIssuer.generateAccessToken(loginRequest.getEmail());
+        String refreshToken = tokenIssuer.generateRefreshToken(loginRequest.getEmail());
+
+        return TokenDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+}

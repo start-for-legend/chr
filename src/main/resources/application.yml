@@ -1,0 +1,33 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+  main:
+    allow-bean-definition-overriding: 'true'
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+  datasource:
+    driver-class-name: ${DB_CLASS}
+    username: ${DB_USER}
+    url: ${DB_URL}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  accessSecret: ${ACCESS_SECRET}
+  refreshSecret: ${REFRESH_SECRET}
+  accessTime: ${ACCESS_TIME}
+  refreshTime: ${REFRESH_TIME}
+
+server:
+  port: 9080
