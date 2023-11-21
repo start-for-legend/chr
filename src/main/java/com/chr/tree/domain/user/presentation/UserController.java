@@ -1,14 +1,11 @@
-package com.chr.tree.domain.user.controller;
+package com.chr.tree.domain.user.presentation;
 
 import com.chr.tree.common.cookie.CookieManager;
-import com.chr.tree.domain.user.controller.data.request.EmailRequest;
-import com.chr.tree.domain.user.controller.data.request.LoginRequest;
-import com.chr.tree.domain.user.controller.data.request.SignupRequest;
-import com.chr.tree.domain.user.controller.data.response.LoginResponse;
-import com.chr.tree.domain.user.controller.data.response.TokenDto;
-import com.chr.tree.domain.user.service.CheckAuthCodeService;
+import com.chr.tree.domain.user.presentation.data.request.LoginRequest;
+import com.chr.tree.domain.user.presentation.data.request.SignupRequest;
+import com.chr.tree.domain.user.presentation.data.response.LoginResponse;
+import com.chr.tree.domain.user.presentation.data.response.TokenDto;
 import com.chr.tree.domain.user.service.LoginService;
-import com.chr.tree.domain.user.service.SendAuthenticationCodeService;
 import com.chr.tree.domain.user.service.SignupService;
 import com.chr.tree.global.security.jwt.TokenIssuer;
 import jakarta.servlet.http.HttpServletResponse;

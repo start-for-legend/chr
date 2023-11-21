@@ -1,6 +1,6 @@
 package com.chr.tree.domain.user.service;
 
-import com.chr.tree.domain.user.controller.data.request.SignupRequest;
+import com.chr.tree.domain.user.presentation.data.request.SignupRequest;
 
 public interface SignupService {
 

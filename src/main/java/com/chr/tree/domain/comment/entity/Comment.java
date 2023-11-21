@@ -1,7 +1,6 @@
 package com.chr.tree.domain.comment.entity;
 
 import com.chr.tree.domain.comment.enums.CommentType;
-import com.chr.tree.domain.tree.entity.Tree;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,10 +20,6 @@ public class Comment {
 
     @Column(nullable = false, length = 200)
     private String comment;
-
-    @JoinColumn(name = "tree_id")
-    @ManyToOne
-    private Tree tree;
 
     @Enumerated(EnumType.STRING)
     private CommentType commentType;

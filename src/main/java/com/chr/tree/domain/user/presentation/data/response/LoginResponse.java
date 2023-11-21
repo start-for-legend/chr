@@ -1,4 +1,4 @@
-package com.chr.tree.domain.user.controller.data.response;
+package com.chr.tree.domain.user.presentation.data.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.chr.tree.domain.user.service.impl;
 
-import com.chr.tree.domain.user.controller.data.request.SignupRequest;
+import com.chr.tree.domain.user.presentation.data.request.SignupRequest;
 import com.chr.tree.domain.user.entity.Authentication;
 import com.chr.tree.domain.user.entity.User;
 import com.chr.tree.domain.user.exception.ExistByEmailException;

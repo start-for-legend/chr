@@ -1,4 +1,4 @@
-package com.chr.tree.domain.user.controller.data.request;
+package com.chr.tree.domain.user.presentation.data.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
