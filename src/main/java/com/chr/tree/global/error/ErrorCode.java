@@ -25,7 +25,7 @@ public enum ErrorCode {
     TOKEN_NOT_VALID("토큰이 유효 하지 않습니다.", 401),
 
     //COMMENT
-    NOT_ALLOWED_TYPE("not allowed comment type", 401),
+    NOT_ALLOWED_TYPE("not allowed comment type", 400),
     ;
 
     private final String message;
