@@ -1,7 +1,7 @@
-package com.chr.tree.domain.user.controller;
+package com.chr.tree.domain.user.presentation;
 
-import com.chr.tree.domain.user.controller.data.request.CheckRequest;
-import com.chr.tree.domain.user.controller.data.request.EmailRequest;
+import com.chr.tree.domain.user.presentation.data.request.CheckRequest;
+import com.chr.tree.domain.user.presentation.data.request.EmailRequest;
 import com.chr.tree.domain.user.service.CheckAuthCodeService;
 import com.chr.tree.domain.user.service.SendAuthenticationCodeService;
 import lombok.RequiredArgsConstructor;

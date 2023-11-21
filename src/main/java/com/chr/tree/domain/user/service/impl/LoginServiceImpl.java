@@ -1,7 +1,7 @@
 package com.chr.tree.domain.user.service.impl;
 
-import com.chr.tree.domain.user.controller.data.request.LoginRequest;
-import com.chr.tree.domain.user.controller.data.response.TokenDto;
+import com.chr.tree.domain.user.presentation.data.request.LoginRequest;
+import com.chr.tree.domain.user.presentation.data.response.TokenDto;
 import com.chr.tree.domain.user.entity.User;
 import com.chr.tree.domain.user.exception.InvalidPasswordException;
 import com.chr.tree.domain.user.exception.UserNotFoundException;
