@@ -8,7 +8,6 @@ import com.chr.tree.global.util.MailUtil;
 import lombok.RequiredArgsConstructor;
 
 import java.security.SecureRandom;
-import java.util.Random;
 
 @ServiceWithTransactional
 @RequiredArgsConstructor
