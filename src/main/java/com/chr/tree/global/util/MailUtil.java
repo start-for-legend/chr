@@ -1,5 +1,6 @@
 package com.chr.tree.global.util;
 
+import com.chr.tree.global.error.exception.NotSendEmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,7 @@ public class MailUtil {
             messageHelper.setText(content, true);
             javaMailSender.send(message);
         } catch (MessagingException e) {
-            // TODO : Custom Exception
-            throw new RuntimeException(e);
+            throw new NotSendEmailException();
         }
     }
 }

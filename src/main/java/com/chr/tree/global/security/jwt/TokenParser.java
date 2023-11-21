@@ -1,5 +1,7 @@
 package com.chr.tree.global.security.jwt;
 
+import com.chr.tree.global.error.exception.TokenExpiredException;
+import com.chr.tree.global.error.exception.TokenNotValidException;
 import com.chr.tree.global.security.jwt.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -57,12 +59,10 @@ public class TokenParser {
                     .getBody();
 
         } catch (ExpiredJwtException e) {
-            // TODO : CustomException 적용
-            throw new RuntimeException("이미 파기된 토큰");
+            throw new TokenExpiredException();
 
         } catch (JwtException e) {
-            // TODO : CustomException 적용
-            throw new RuntimeException("유효하지 않은 토큰");
+            throw new TokenNotValidException();
         }
     }
 

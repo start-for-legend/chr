@@ -3,6 +3,8 @@ package com.chr.tree.domain.user.service.impl;
 import com.chr.tree.domain.user.controller.data.request.LoginRequest;
 import com.chr.tree.domain.user.controller.data.response.TokenDto;
 import com.chr.tree.domain.user.entity.User;
+import com.chr.tree.domain.user.exception.InvalidPasswordException;
+import com.chr.tree.domain.user.exception.UserNotFoundException;
 import com.chr.tree.domain.user.repository.UserRepository;
 import com.chr.tree.domain.user.service.LoginService;
 import com.chr.tree.global.annotation.ServiceWithTransactional;
@@ -20,13 +22,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public TokenDto execute(LoginRequest loginRequest) {
-        //TODO : CustomException 적용
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(UserNotFoundException::new);
 
-        //TODO : CustomException 적용
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new RuntimeException();
+            throw new InvalidPasswordException();
         }
 
         String accessToken = tokenIssuer.generateAccessToken(loginRequest.getEmail());
