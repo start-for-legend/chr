@@ -17,7 +17,7 @@ public class CreateCommentServiceImpl implements CreateCommentService {
 
     private final CommentRepository commentRepository;
 
-    private static final List<String> ALLOWED_TYPE = List.of("CANDY, BELL, RING");
+    private static final List<String> ALLOWED_TYPE = List.of("CANDY", "BELL", "RING");
 
     @Override
     public void execute(Long userId, CommentRequest request) {
