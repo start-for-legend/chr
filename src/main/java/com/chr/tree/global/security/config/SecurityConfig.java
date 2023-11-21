@@ -16,9 +16,10 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
+@EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
@@ -43,7 +44,9 @@ public class SecurityConfig {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 
                 .requestMatchers(HttpMethod.POST, "/auth").permitAll()
-                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth/new").permitAll()
+                .requestMatchers(HttpMethod.POST, "/email").permitAll()
+                .requestMatchers(HttpMethod.PATCH, "/email").permitAll()
                 .requestMatchers(HttpMethod.PATCH, "/auth").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
