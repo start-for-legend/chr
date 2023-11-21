@@ -7,6 +7,7 @@ import com.chr.tree.global.annotation.ServiceWithTransactional;
 import com.chr.tree.global.util.MailUtil;
 import lombok.RequiredArgsConstructor;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 @ServiceWithTransactional
@@ -18,7 +19,7 @@ public class SendAuthenticationServiceImpl implements SendAuthenticationCodeServ
 
     @Override
     public void execute(String email) {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         int code = random.nextInt(8888) + 1111;
 
         saveAuth(email, code);
