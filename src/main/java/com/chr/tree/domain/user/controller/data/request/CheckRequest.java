@@ -1,7 +1,7 @@
 package com.chr.tree.domain.user.controller.data.request;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,6 @@ public class CheckRequest {
     @Email(message = "Not Invalid email type")
     private String email;
 
-    @NotBlank(message = "Not Blank")
+    @NotNull(message = "Not Blank")
     private int code;
 }
