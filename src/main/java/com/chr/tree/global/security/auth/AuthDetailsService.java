@@ -1,5 +1,6 @@
 package com.chr.tree.global.security.auth;
 
+import com.chr.tree.domain.user.exception.UserNotFoundException;
 import com.chr.tree.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,6 @@ public class AuthDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // TODO: CUSTOM EXCEPTION
-        return (UserDetails) userRepository.findByEmail(email).orElseThrow(RuntimeException::new);
+        return (UserDetails) userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 }
