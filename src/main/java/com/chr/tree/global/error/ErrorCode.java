@@ -23,6 +23,9 @@ public enum ErrorCode {
     //TOKEN
     TOKEN_IS_EXPIRED("토큰이 만료 되었습니다.", 401),
     TOKEN_NOT_VALID("토큰이 유효 하지 않습니다.", 401),
+
+    //COMMENT
+    NOT_ALLOWED_TYPE("not allowed comment type", 401),
     ;
 
     private final String message;
