@@ -2,7 +2,9 @@ package com.chr.tree.domain.comment.presentation;
 
 import com.chr.tree.domain.comment.presentation.data.request.CommentRequest;
 import com.chr.tree.domain.comment.presentation.data.response.CommentListResponse;
+import com.chr.tree.domain.comment.presentation.data.response.DetailCommentResponse;
 import com.chr.tree.domain.comment.service.CreateCommentService;
+import com.chr.tree.domain.comment.service.DetailCommentService;
 import com.chr.tree.domain.comment.service.GetCommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ public class CommentController {
 
     private final CreateCommentService createCommentService;
     private final GetCommentsService getCommentsService;
+    private final DetailCommentService detailCommentService;
 
     @PostMapping("/{userId}")
     public ResponseEntity<Void> createComment(@RequestBody CommentRequest commentRequest, @PathVariable Long userId) {
@@ -31,5 +34,11 @@ public class CommentController {
         Pageable pageable = PageRequest.of(Math.toIntExact(offset), 8);
         var list = getCommentsService.execute(pageable, userId);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/{commentId}")
+    public ResponseEntity<DetailCommentResponse> getCommentDetail(@PathVariable Long commentId) {
+        var response = detailCommentService.execute(commentId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
