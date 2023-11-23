@@ -49,6 +49,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PATCH, "/email").permitAll()
                 .requestMatchers(HttpMethod.PATCH, "/auth").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/auth").authenticated()
+                .requestMatchers(HttpMethod.POST, "/comment/**").authenticated()
+                .requestMatchers(HttpMethod.GET, "/comment/**").authenticated()
 
                 .anyRequest().denyAll();
         http
