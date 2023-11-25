@@ -14,7 +14,7 @@ public class CookieManager {
         cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(600);
+        cookie.setMaxAge(1209600);
 
         return cookie;
     }

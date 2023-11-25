@@ -1,5 +1,7 @@
 package com.chr.tree.global.filter;
 
+import com.chr.tree.domain.auth.repository.BlackListRepository;
+import com.chr.tree.global.error.exception.TokenExpiredException;
 import com.chr.tree.global.security.jwt.TokenParser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,6 +22,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final TokenParser tokenParser;
+    private final BlackListRepository blackListRepository;
 
     @Override
     protected void doFilterInternal(
@@ -30,6 +33,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String token = tokenParser.resolveToken(request);
 
         if (token != null && !token.isBlank()) {
+            if (blackListRepository.existsByAccessToken(token)) {
+                throw new TokenExpiredException();
+            }
+
             Authentication authentication = tokenParser.authentication(token);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);

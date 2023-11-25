@@ -66,6 +66,10 @@ public class TokenParser {
         }
     }
 
+    public String extractEmailWithClaim(String token) {
+        return getTokenBody(token, jwtProperties.getRefreshSecret()).getSubject();
+    }
+
     public Authentication authentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(getTokenBody(token, jwtProperties.getAccessSecret()).getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
