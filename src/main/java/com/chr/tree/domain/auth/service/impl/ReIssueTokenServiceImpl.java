@@ -36,8 +36,6 @@ public class ReIssueTokenServiceImpl implements ReIssueTokenService {
             throw new TokenNotValidException();
         }
 
-        System.out.println("token = " + token);
-
         RefreshToken res = refreshTokenRepository.findById(userUtil.currentUser().getUserId()).orElseThrow(TokenExpiredException::new);
 
         String email = tokenParser.extractEmailWithClaim(res.getRefreshToken());
