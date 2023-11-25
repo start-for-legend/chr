@@ -49,7 +49,7 @@ public class LoginServiceImpl implements LoginService {
                 .userId(userId)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .expiredAs(tokenIssuer.getTokenTimeProperties().getRefreshTime())
+                .expiresIn(tokenIssuer.getTokenTimeProperties().getRefreshTime())
                 .build();
 
         refreshTokenRepository.save(redis);

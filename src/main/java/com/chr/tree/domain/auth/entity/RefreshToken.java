@@ -24,7 +24,7 @@ public class RefreshToken {
     private String refreshToken;
 
     @TimeToLive
-    private Long expiredAs;
+    private Long expiresIn;
 
     public void setToken(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
