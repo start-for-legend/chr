@@ -39,7 +39,7 @@ public class LogoutServiceImpl implements LogoutService {
             throw new TokenExpiredException();
         }
 
-        RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(token).orElseThrow(RuntimeException::new);
+        RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(token).orElseThrow(TokenExpiredException::new);
 
         BlackList blackList = BlackList
                 .builder()
