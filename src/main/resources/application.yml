@@ -8,6 +8,11 @@ spring:
   main:
     allow-bean-definition-overriding: 'true'
 
+  data:
+    redis:
+      host: ${R_HOST}
+      port: ${R_PORT}
+
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
