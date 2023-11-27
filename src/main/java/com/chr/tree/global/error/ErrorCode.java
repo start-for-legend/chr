@@ -27,6 +27,7 @@ public enum ErrorCode {
     //COMMENT
     NOT_ALLOWED_TYPE("not allowed comment type", 400),
     NOT_FOUND_COMMENT("not found comment", 404),
+    NOT_COMMENT_MYSELF("not comment myself", 403),
     ;
 
     private final String message;
