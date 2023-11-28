@@ -13,6 +13,7 @@ public enum ErrorCode {
     //EMAIL AUTHENTICATION
     AUTH_NOT_FOUND("not exists auth", 404),
     NOT_CHECKED_EMAIL("not certified email", 403),
+    INVALID_AUTH_CODE("not invalid code", 403),
 
     //USER AUTH
     USER_NOT_FOUND("user not found", 404),
