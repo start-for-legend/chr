@@ -1,6 +1,9 @@
 package com.chr.tree.global.security.config;
 
 import com.chr.tree.global.filter.JwtRequestFilter;
+import com.chr.tree.global.filter.LogRequestFilter;
+import com.chr.tree.global.security.handler.CustomAccessDeniedHandler;
+import com.chr.tree.global.security.handler.CustomAuthenticationEntryPointHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
+    private final LogRequestFilter logRequestFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception {
@@ -33,28 +37,33 @@ public class SecurityConfig {
                 .rememberMe().disable()
                 .cors().configurationSource(corsConfigurationSource()).and()
                 .csrf().disable();
-
         http
-                .httpBasic().disable() //UI, UX Disable
+                .exceptionHandling()
+                    .accessDeniedHandler(new CustomAccessDeniedHandler())
+                .authenticationEntryPoint(new CustomAuthenticationEntryPointHandler());
+        http
+                .httpBasic().disable()
                 .formLogin().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                //인가 정책
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 
-                .requestMatchers(HttpMethod.POST, "/auth").permitAll()
-                .requestMatchers(HttpMethod.POST, "/auth/new").permitAll()
-                .requestMatchers(HttpMethod.POST, "/email").permitAll()
-                .requestMatchers(HttpMethod.PATCH, "/email").permitAll()
-                .requestMatchers(HttpMethod.PATCH, "/auth").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/auth").authenticated()
-                .requestMatchers(HttpMethod.POST, "/comment/**").authenticated()
-                .requestMatchers(HttpMethod.GET, "/comment/**").authenticated()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/auth").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/auth/new").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/email").permitAll()
+                .requestMatchers(HttpMethod.PATCH, "/v1/email").permitAll()
+                .requestMatchers(HttpMethod.PATCH, "/v1/auth").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/v1/auth").authenticated()
+                .requestMatchers(HttpMethod.POST, "/v1/comment/**").authenticated()
+                .requestMatchers(HttpMethod.GET, "/v1/comment/**").authenticated()
+                .requestMatchers(HttpMethod.GET, "/v1/link").authenticated()
 
                 .anyRequest().denyAll();
         http
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(logRequestFilter, JwtRequestFilter.class);
 
         return http.build();
     }
