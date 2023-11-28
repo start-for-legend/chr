@@ -1,0 +1,60 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: rubycpp1225/ttj
+          stage: main
+          yaml: |
+            name: chr
+            app: java@17
+            options:
+              ports: "9080"
+              env:
+                - name: ACCESS_SECRET
+                  secret: ACCESS_SECRET
+                - name: ACCESS_TIME
+                  secret: ACCESS_TIME
+                - name: DB_CLASS
+                  secret: DB_CLASS
+                - name: DB_PASSWORD
+                  secret: DB_PASSWORD
+                - name: DB_URL
+                  secret: DB_URL
+                - name: DB_USER
+                  secret: DB_USER
+                - name: MAIL_HOST
+                  secret: MAIL_HOST
+                - name: MAIL_PASSWORD
+                  secret: MAIL_PASSWORD
+                - name: MAIL_PORT
+                  secret: MAIL_PORT
+                - name: MAIL_USER
+                  secret: MAIL_USER
+                - name: R_HOST
+                  secret: R_HOST
+                - name: R_PORT
+                  secret: R_PORT
+                - name: REFRESH_SECRET
+                  secret: REFRESH_SECRET
+                - name: REFRESH_TIME
+                  secret: REFRESH_TIME
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
