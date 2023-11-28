@@ -10,6 +10,13 @@ import com.chr.tree.domain.user.presentation.data.response.TokenDto;
 import com.chr.tree.domain.user.service.LoginService;
 import com.chr.tree.domain.user.service.SignupService;
 import com.chr.tree.global.security.jwt.TokenIssuer;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +26,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 
+@Tag(name = "AUTH API", description = "Auth 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/v1/auth")
 public class UserController {
 
     private final SignupService signupService;
@@ -31,12 +39,31 @@ public class UserController {
     private final LogoutService logoutService;
     private final ReIssueTokenService reIssueTokenService;
 
+    @Operation(summary = "sign up", description = "유저 회원가입")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "CREATED"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "403", description = "NOT CHECKED EMAIL"),
+            @ApiResponse(responseCode = "409", description = "DUPLICATED DATA"),
+    })
     @PostMapping("/new")
     public ResponseEntity<Void> signUp(@RequestBody SignupRequest signupRequest) {
         signupService.execute(signupRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Operation(summary = "login", description = "유저 로그인")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "SUCCESS LOGIN",
+                    content = @Content(schema = @Schema(implementation = LoginResponse.class)),
+                    headers = @Header(name = "refreshToken", description = "refreshToken value", required = true)
+            ),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "403", description = "INVALID PASSWORD"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND USER BY EMAIL"),
+    })
     @PostMapping
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest, HttpServletResponse res) {
         TokenDto tokenDto = loginService.execute(loginRequest);
@@ -51,6 +78,16 @@ public class UserController {
                 HttpStatus.OK);
     }
 
+    @Operation(summary = "reissue token", description = "유저 토큰 재발급")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "CREATED",
+                    content = @Content(schema = @Schema(implementation = LoginResponse.class)),
+                    headers = @Header(name = "refreshToken", description = "refreshToken value", required = true)
+            ),
+            @ApiResponse(responseCode = "401", description = "Token InValid, Token Expired"),
+    })
     @PatchMapping
     public ResponseEntity<LoginResponse> reIssueToken(HttpServletRequest request, HttpServletResponse res) {
         TokenDto tokenDto = reIssueTokenService.execute(request.getCookies());
@@ -65,6 +102,11 @@ public class UserController {
                 HttpStatus.OK);
     }
 
+    @Operation(summary = "logout", description = "유저 로그아웃")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "CREATED"),
+            @ApiResponse(responseCode = "401", description = "Token InValid, Token Expired"),
+    })
     @DeleteMapping
     public ResponseEntity<Void> logout(HttpServletRequest request) {
         logoutService.execute(request.getCookies());
