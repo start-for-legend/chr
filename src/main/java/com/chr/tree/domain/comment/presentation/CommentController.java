@@ -73,6 +73,7 @@ public class CommentController {
                     description = "GET COMMENT DETAIL",
                     content = @Content(schema = @Schema(implementation = DetailCommentResponse.class))
             ),
+            @ApiResponse(responseCode = "403", description = "PERMISSION DENIED READ"),
             @ApiResponse(responseCode = "404", description = "USER NOT FOUND"),
     })
     @GetMapping("/{userId}/{commentId}")
