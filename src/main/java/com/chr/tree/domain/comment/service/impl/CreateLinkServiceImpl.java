@@ -12,8 +12,7 @@ public class CreateLinkServiceImpl implements CreateLinkService {
 
     private final UserUtil userUtil;
 
-    // TODO : Domain 적용
-    String domain = "https://{backend_url}/";
+    String domain = "https://port-0-chr-koh2xljfbuiob.sel4.cloudtype.app/";
 
     @Override
     public LinkResponse execute() {
