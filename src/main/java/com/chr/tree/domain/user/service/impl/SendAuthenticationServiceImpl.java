@@ -1,7 +1,6 @@
 package com.chr.tree.domain.user.service.impl;
 
 import com.chr.tree.domain.user.entity.Authentication;
-import com.chr.tree.domain.user.exception.AuthNotFoundException;
 import com.chr.tree.domain.user.repository.AuthenticationRepository;
 import com.chr.tree.domain.user.service.SendAuthenticationCodeService;
 import com.chr.tree.global.annotation.ServiceWithTransactional;
@@ -27,14 +26,6 @@ public class SendAuthenticationServiceImpl implements SendAuthenticationCodeServ
     }
 
     private void saveAuth(String email, int code) {
-        if (authenticationRepository.existsByEmail(email)) {
-            Authentication auth = authenticationRepository.findByEmail(email).orElseThrow(AuthNotFoundException::new);
-
-            auth.setAuthCode(code);
-            authenticationRepository.save(auth);
-            return;
-        }
-
         Authentication auth = Authentication.builder()
                 .email(email)
                 .authCode(code)
