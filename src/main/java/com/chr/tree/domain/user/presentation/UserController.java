@@ -9,6 +9,7 @@ import com.chr.tree.domain.user.presentation.data.response.LoginResponse;
 import com.chr.tree.domain.user.presentation.data.response.TokenDto;
 import com.chr.tree.domain.user.service.LoginService;
 import com.chr.tree.domain.user.service.SignupService;
+import com.chr.tree.domain.user.service.UserSearchService;
 import com.chr.tree.global.security.jwt.TokenIssuer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
@@ -37,6 +38,7 @@ public class UserController {
     private final TokenIssuer tokenIssuer;
     private final CookieManager cookieManager;
     private final LogoutService logoutService;
+    private final UserSearchService userSearchService;
     private final ReIssueTokenService reIssueTokenService;
 
     @Operation(summary = "sign up", description = "유저 회원가입")
@@ -111,5 +113,17 @@ public class UserController {
     public ResponseEntity<Void> logout(HttpServletRequest request) {
         logoutService.execute(request.getCookies());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Operation(summary = "search", description = "유저 검색")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Token InValid, Token Expired"),
+            @ApiResponse(responseCode = "404", description = "User Not Found"),
+    })
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> search(@PathVariable Long userId) {
+        var response = userSearchService.execute(userId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
