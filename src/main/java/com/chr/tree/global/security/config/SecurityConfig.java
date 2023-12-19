@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/v1/auth/new").permitAll()
                 .requestMatchers(HttpMethod.POST, "/v1/email").permitAll()
                 .requestMatchers(HttpMethod.PATCH, "/v1/email").permitAll()
+                .requestMatchers(HttpMethod.GET, "/v1/auth/**").permitAll()
                 .requestMatchers(HttpMethod.PATCH, "/v1/auth").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/v1/auth").authenticated()
                 .requestMatchers(HttpMethod.POST, "/v1/comment/**").authenticated()
