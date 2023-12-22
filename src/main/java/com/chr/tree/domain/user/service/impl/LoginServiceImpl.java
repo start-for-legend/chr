@@ -40,6 +40,7 @@ public class LoginServiceImpl implements LoginService {
         return TokenDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .currentUserId(user.getUserId())
                 .build();
     }
 

@@ -76,6 +76,7 @@ public class UserController {
                 LoginResponse.builder()
                         .accessToken(tokenDto.getAccessToken())
                         .expiredAt(ZonedDateTime.now().plusSeconds(tokenIssuer.getACCESS_TOKEN_EXPIRE_TIME()))
+                        .currentUserId(tokenDto.getCurrentUserId())
                         .build(),
                 HttpStatus.OK);
     }
