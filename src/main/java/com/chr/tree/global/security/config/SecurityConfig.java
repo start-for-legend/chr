@@ -61,6 +61,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/v1/comment/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/v1/commentList/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/v1/link").authenticated()
+                .requestMatchers("/static/**").permitAll()
 
                 .anyRequest().denyAll();
         http
